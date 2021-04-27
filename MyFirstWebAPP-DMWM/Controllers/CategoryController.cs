@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyFirstWebAPP_DMWM.Data;
+using MyFirstWebAPP_DMWM.Models;
 
 namespace MyFirstWebAPP_DMWM.Controllers
 {
@@ -20,6 +21,24 @@ namespace MyFirstWebAPP_DMWM.Controllers
         {
             var cat = _db.Categories.ToList();
             return View(cat);
+        }
+        //HTTP-GET 
+        public IActionResult Create()
+        {
+            return View();
+        }
+        //HTTP-POST
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            if(ModelState.IsValid)
+            {
+                _db.Categories.Add(category);
+                _db.SaveChanges();
+                return RedirectToAction("Index","Category");
+            }
+            return View(category);
+
         }
     }
 }
