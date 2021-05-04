@@ -14,5 +14,6 @@ namespace MyFirstWebAPP_DMWM.Models
         [Required]
         [Display(Name ="Name of SubCategory")]
         public string Name { get; set; }
+        public Category category { get; set; }
     }
 }

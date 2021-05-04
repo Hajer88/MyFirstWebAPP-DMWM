@@ -13,6 +13,6 @@ namespace MyFirstWebAPP_DMWM.Models
         [Required]
         public string Name { get; set; }
         
-        public IEnumerable<SubCategory> subcategories{ get; set; }
+        
     }
 }

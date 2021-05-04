@@ -63,6 +63,21 @@ namespace MyFirstWebAPP_DMWM.Controllers
             
             
         }
+        //HTTP-GET
+        public IActionResult Delete(int id)
+        {
+            var cat = _db.Categories.Find(id);
+            return View(cat);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var cat = _db.Categories.Find(id);
+            _db.Categories.Remove(cat);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
 
     }
 }

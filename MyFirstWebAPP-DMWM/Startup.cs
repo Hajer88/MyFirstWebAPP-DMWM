@@ -12,6 +12,7 @@ using MyFirstWebAPP_DMWM.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyFirstWebAPP_DMWM.Services;
 
 namespace MyFirstWebAPP_DMWM
 {
@@ -34,6 +35,7 @@ namespace MyFirstWebAPP_DMWM
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped<ICatgegoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
