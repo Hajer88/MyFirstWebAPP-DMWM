@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyFirstWebAPP_DMWM.Data;
 using MyFirstWebAPP_DMWM.Models;
 
@@ -13,13 +14,14 @@ namespace MyFirstWebAPP_DMWM.Controllers
         private readonly ApplicationDbContext _db;
         public CategoryController(ApplicationDbContext db)
         {
+            //_db=new ApplicationDbContext();
             _db = db;
         }
         //action result pour lister les catégories
         //HTTP-GET
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var cat = _db.Categories.ToList();
+            var cat = await _db.Categories.ToListAsync();
             return View(cat);
         }
         //HTTP-GET 
@@ -40,5 +42,27 @@ namespace MyFirstWebAPP_DMWM.Controllers
             return View(category);
 
         }
+        //HTTP-GET
+        public IActionResult Edit(int? id)
+        {
+            if (id == null) return NotFound();
+            var category = _db.Categories.SingleOrDefault(c=>c.Id==id);
+            return View(category);
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category category)
+        {
+           // var catInDb = _db.Categories.Find(id);
+           //if (id == null) return Content("Id not found");
+            //Mapping manuelle
+            _db.Update(category);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+            
+            
+        }
+
     }
 }
