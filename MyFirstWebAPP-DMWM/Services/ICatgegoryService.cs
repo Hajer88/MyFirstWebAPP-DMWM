@@ -8,6 +8,11 @@ namespace MyFirstWebAPP_DMWM.Services
 {
     public interface ICatgegoryService
     {
-        Task<IEnumerable<Category>> getallcategories();
+        Task<IEnumerable<CategoryDTO>> getallcategories();
+        Task<CategoryDTO> CreateCategory(CategoryDTO category);
+        Task<CategoryDTO> EditCategory(int id, Category category);
+        Task<Category> DeleteCategory(int id);
+        Task<IEnumerable<SubCategory>> GetSubCategoriesByCategoryName();
+
     }
 }

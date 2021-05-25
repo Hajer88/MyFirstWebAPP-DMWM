@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyFirstWebAPP_DMWM.Data;
@@ -9,6 +10,9 @@ using MyFirstWebAPP_DMWM.Models;
 
 namespace MyFirstWebAPP_DMWM.Controllers
 {
+    [Authorize(Roles ="Admin")]
+    //[Authorize(Roles="Customer")]
+    //[AllowAnonymous]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -19,6 +23,7 @@ namespace MyFirstWebAPP_DMWM.Controllers
         }
         //action result pour lister les catégories
         //HTTP-GET
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var cat = await _db.Categories.ToListAsync();
